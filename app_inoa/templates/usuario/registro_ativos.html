@@ -1,0 +1,77 @@
+{% extends 'usuario/base.html' %}
+{% block conteudo %}
+<form method="post" action="{% url 'monitorar_ativos' %}">
+    {% csrf_token %}
+    
+    <!-- Campos iniciais -->
+    <div class="form-group">
+        <label for="ativo_1">Ativo 1:</label>
+        <input type="text" class="form-control" id="nome_ativo" name="nome_ativo" placeholder="Ex: PETR4, VALE3, EMBR3, COGN3">
+    </div>
+    <div class="form-group">
+        <label for="tunel_sup_1">Preço de venda:</label>
+        <input type="text" class="form-control" id="tunel_sup" name="tunel_sup">
+    </div>
+    <div class="form-group">
+        <label for="tunel_inf_1">Preço de compra:</label>
+        <input type="text" class="form-control" id="tunel_inf" name="tunel_inf">
+    </div>
+    <div class="form-group">
+        <label for="periodo_1">Periodicidade de checagem do ativo (min):</label>
+        <input type="text" class="form-control" id="periodo" name="periodo">
+    </div>
+
+   
+
+    <!-- Container para adicionar campos dinamicamente -->
+    <div id="form-container" style="margin-top: 20px;"></div>
+     
+    <!-- Botão para adicionar campos dinamicamente -->
+     <button type="button" onclick="addFormField()" class="btn btn-primary">Adicionar Ativo</button>
+     
+     <!-- Botão para remover campos dinamicamente -->
+     <button type="button" onclick="removeFormField()" class="btn btn-danger">Remover Ativo</button>
+    
+    <!-- Botão de envio -->
+    <button type="submit" class="btn btn-primary">Monitorar</button>
+</form>
+
+<script>
+    let fieldCount = 1;
+
+    function addFormField() {
+        fieldCount++;
+        const formContainer = document.getElementById('form-container');
+        const newForm = document.createElement('div');
+        newForm.innerHTML = `
+            <div id="form-container" style="margin-top: 20px;">
+                <label for="ativo_${fieldCount}">Ativo ${fieldCount}:</label>
+                <input type="text" class="form-control" id="ativo_${fieldCount}" name="nome_ativo" placeholder="Ex: PETR4, VALE3, EMBR3, COGN3">
+            </div>
+            <div class="form-group">
+                <label for="tunel_sup_${fieldCount}">Preço de venda:</label>
+                <input type="text" class="form-control" id="tunel_sup_${fieldCount}" name="tunel_sup">
+            </div>
+            <div class="form-group">
+                <label for="tunel_inf_${fieldCount}">Preço de compra:</label>
+                <input type="text" class="form-control" id="tunel_inf_${fieldCount}" name="tunel_inf">
+            </div>
+            <div class="form-group">
+                <label for="periodo_${fieldCount}">Periodicidade de checagem do ativo (min):</label>
+                <input type="text" class="form-control" id="periodo_${fieldCount}" name="periodo">
+            </div>
+        `;
+        formContainer.appendChild(newForm);
+    }
+
+    function removeFormField() {
+        if (fieldCount > 1) {
+            const formContainer = document.getElementById('form-container');
+            formContainer.removeChild(formContainer.lastChild);
+            fieldCount--;
+        }
+    }
+
+</script>
+
+{% endblock %}

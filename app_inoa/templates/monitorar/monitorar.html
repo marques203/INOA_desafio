@@ -1,0 +1,27 @@
+{% extends 'usuario/base.html' %}
+{% block conteudo %}
+
+<div class="container">
+    <h1>Listagem de ativos monitorados: </h1>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Nome do ativo</th> 
+           <th>Nome da empresa</th> 
+           <th>Preço atual do ativo</th>
+        </tr>
+        {% for dado in dados_da_api %}
+        <tr>
+           <td>{{ dado.results.0.symbol }}</td>
+           <td>{{ dado.results.0.longName }}</td>
+           <td>{{ dado.results.0.regularMarketPrice }}</td>
+        </tr>
+        {% endfor %}    
+    </table>
+</div>
+
+<div class="container text-center">
+<a href="{% url 'registro_ativos' %}" class="btn btn-primary">Cancelar</a>
+
+<a href="{% url 'historico_ativos' %}" class="btn btn-primary">Ver Histórico de preços monitorados </a>
+</div>
+{% endblock %}

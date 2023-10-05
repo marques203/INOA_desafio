@@ -1,0 +1,25 @@
+{% extends 'usuario/base.html' %}
+{% block conteudo %}
+
+
+<div class="container">
+    <h1>Histórico de Preços dos Ativos</h1>
+    {% for nome, grafico in graficos %}
+        <h2>{{ nome }}</h2>
+        <img src="data:image/png;base64,{{ grafico }}" alt="Histórico de Preços">
+    {% endfor %}
+</div>
+
+<div id="form-container" style="text-align: center; padding-top: 1cm;">
+<button type="button" onclick="voltarPaginaAnterior();" class="btn btn-primary">Voltar</button>
+</div>
+
+<script>
+function voltarPaginaAnterior() {
+    window.history.back();  // Isso faz com que o navegador volte para a página anterior
+}
+</script>
+
+
+
+{% endblock %}
