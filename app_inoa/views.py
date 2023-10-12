@@ -120,8 +120,10 @@ def registro_ativos(request):
             email_thread = threading.Thread(target=schedule_send_email, args=(ativo,))
             email_thread.start()
             dados_da_api.append(api_request(ativo))
-    
-        return render(request, 'monitorar/monitorar.html', {'dados_da_api': dados_da_api})
+        
+        dados_e_ativos = zip(dados_da_api, ativos_criados)
+       
+        return render(request, 'monitorar/monitorar.html', {'dados_e_ativos': dados_e_ativos})
 
    return render(request, "usuario/registro_ativos.html")
 
@@ -139,7 +141,7 @@ def historico(request):
     
     for ativo in ativos:
         # Simule dados de preços para o exemplo
-        # Substitua isso pela lógica real para obter o histórico de preços do banco de dados
+        
 
         precos = ativo.precos
         print(precos)

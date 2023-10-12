@@ -6,14 +6,16 @@
     <table class="table table-bordered table-striped">
         <tr>
             <th>Nome do ativo</th> 
-           <th>Nome da empresa</th> 
-           <th>Preço atual do ativo</th>
+            <th>Nome da empresa</th>
+            <th>Preço atual do ativo</th>
+            <th>Período de Checagem (minutos)</th>
         </tr>
-        {% for dado in dados_da_api %}
+        {% for dado, ativo in dados_e_ativos %}
         <tr>
-           <td>{{ dado.results.0.symbol }}</td>
-           <td>{{ dado.results.0.longName }}</td>
-           <td>{{ dado.results.0.regularMarketPrice }}</td>
+            <td>{{ dado.results.0.symbol }}</td>
+            <td>{{ dado.results.0.longName }}</td>
+            <td>{{ dado.results.0.regularMarketPrice }}</td>
+            <td>{{ ativo.periodo }}</td>
         </tr>
         {% endfor %}    
     </table>
